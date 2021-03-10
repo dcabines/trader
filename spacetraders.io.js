@@ -18,11 +18,11 @@ const http = async(method, path, fetchBody, token) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
-  }).catch((error) => {
-    console.log(error);
   });
 
   const json = await res.json();
+
+  console.log(json);
 
   saveState(json);
   saveArchive();
