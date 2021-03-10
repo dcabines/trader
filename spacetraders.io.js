@@ -1,12 +1,8 @@
 const root = 'https://api.spacetraders.io';
 const fetch = require("node-fetch");
-const express = require('express')
-const path = require('path')
+const express = require('express');
+const path = require('path');
 const PORT = process.env.PORT || 5000
-
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 // utils
 const timeout = (seconds) => new Promise(resolve => setTimeout(resolve, seconds * 1000));
@@ -331,7 +327,7 @@ const richMan = async() => {
     source: 'OE-NY',
     destination: 'OE-PM',
     fuel: 30,
-    creditReserve: 10000,
+    creditReserve: 1000,
     shipId: 'ckm2vc3vk16160214989jh86ygmm'
   });
 };
@@ -377,5 +373,10 @@ const explorer = async() => {
   });
 };
 
-console.clear();
-richMan();
+express()
+  .get('/restart', (req, res) => {
+    richMan();
+    res.send('restarted');
+  })
+  .use(express.static(path.join(__dirname, 'public')))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
