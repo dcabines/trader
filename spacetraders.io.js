@@ -1,4 +1,5 @@
 const root = 'https://api.spacetraders.io';
+const fetch = require("node-fetch");
 
 // utils
 const timeout = (seconds) => new Promise(resolve => setTimeout(resolve, seconds * 1000));
