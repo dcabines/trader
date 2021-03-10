@@ -370,4 +370,4 @@ const explorer = async() => {
 };
 
 console.clear();
-await richMan();
+richMan();
