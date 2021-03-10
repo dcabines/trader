@@ -21,11 +21,11 @@ const http = async(method, path, fetchBody, token) => {
   });
 
   const json = await res.json();
-
-  console.log(json);
-
+  console.log('response', json);
+  
   saveState(json);
   saveArchive();
+  console.log('state', JSON.stringify(state));
   await timeout(1);
 };
 
