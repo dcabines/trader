@@ -273,8 +273,9 @@ const trade = async (options) => {
     const location = ship(options.shipId).location;
 
     if (!location) {
-      await getAccount();
-      continue;
+      // await getAccount();
+      // continue;
+      return;
     }
 
     beginTrip();
