@@ -7,7 +7,10 @@ const PORT = process.env.PORT || 5000
 express()
   .get('/state.json', (req, res) => res.json(state))
   .get('/archive.json', (req, res) => res.json(archive))
-  .get('/start', (req, res) => richMan)
+  .get('/start', (req, res) => {
+    richMan();
+    res.sendStatus(200);
+  })
   .use(express.static(path.join(__dirname, 'public')))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
