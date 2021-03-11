@@ -1,12 +1,4 @@
 const root = 'https://api.spacetraders.io';
-const fetch = require("node-fetch");
-const express = require('express')
-const path = require('path')
-const PORT = process.env.PORT || 5000
-
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 // utils
 const timeout = (seconds) => new Promise(resolve => setTimeout(resolve, seconds * 1000));
@@ -162,7 +154,7 @@ const getUser = (username, token) => get(`/users/${username}`, token);
 
 const getLoans = (token) => get(game('loans'), token);
 const takeLoan = (type, token) => post(user('loans'), { type }, token);
-const payLoan = (loanId, token) =>  put(`${user('loans')}/${loanId}`, {}, token);
+const payLoan = (loanId, token) => put(`${user('loans')}/${loanId}`, {}, token);
 
 const getShips = (token) => get(game('ships'), token);
 const buyShip = (location, type, token) => post(user('ships'), { location, type }, token);
@@ -182,15 +174,15 @@ const sellGood = (shipId, good, quantity, token) => post(user('sell-orders'), { 
 // actions
 const getAccount = () => getUser(state.user.username, state.token);
 
-const getMarkets = async() => {
+const getMarkets = async () => {
   for (const ship of state.user.ships) {
     await getMarket(ship.location, state.token);
   }
 };
 
-const fly = async(shipId, destination) => {
+const fly = async (shipId, destination) => {
   const myShip = ship(shipId);
-  if(myShip.location === destination) return;
+  if (myShip.location === destination) return;
 
   await createFlightPlan(shipId, destination, state.token);
   await getAccount();
@@ -202,10 +194,10 @@ const fly = async(shipId, destination) => {
   console.log(report(planetReport(state.planet)));
 };
 
-const buy = async(shipId, good, quantity) => {
+const buy = async (shipId, good, quantity) => {
   const item = marketItem(good);
 
-  if(!item) {
+  if (!item) {
     console.log(availableReport(good));
     return;
   }
@@ -213,33 +205,33 @@ const buy = async(shipId, good, quantity) => {
   const canAfford = state.user.credits / item.pricePerUnit;
   const toBuy = Math.min(canAfford, item.quantityAvailable, quantity);
 
-  if(isNaN(toBuy)) debugger;
-  if(toBuy <= 0) return;
+  if (isNaN(toBuy)) debugger;
+  if (toBuy <= 0) return;
   await buyGood(shipId, good, toBuy, state.token);
   await getAccount();
 
   console.log(report([buyReport(state.order[0]), creditReport()]));
 };
 
-const sell = async(shipId, good, quantity) => {
-  if(quantity <= 0) return;
+const sell = async (shipId, good, quantity) => {
+  if (quantity <= 0) return;
   await sellGood(shipId, good, quantity, state.token);
   await getAccount();
 
   console.log(report([sellReport(state.order[0]), creditReport()]));
 };
 
-const refuel = async(shipId, wantedFuel) => {
+const refuel = async (shipId, wantedFuel) => {
   const cargoFuel = cargo(shipId, 'FUEL') || { quantity: 0 };
   const neededFuel = wantedFuel - cargoFuel.quantity;
 
-  if(isNaN(neededFuel)) debugger;
-  if(neededFuel <= 0) return;
+  if (isNaN(neededFuel)) debugger;
+  if (neededFuel <= 0) return;
   await buy(shipId, 'FUEL', neededFuel, state.token);
 };
 
-const logIn = async(options) => {
-  if(options) {
+const logIn = async (options) => {
+  if (options) {
     state.token = options.token;
     state.user = { username: options.username };
   }
@@ -252,7 +244,7 @@ const logIn = async(options) => {
   console.log('Username', state.user.username);
 };
 
-const startup = async() => {
+const startup = async () => {
   await takeLoan('STARTUP', state.token);
   await buyShip('OE-NY', 'JW-MK-I', state.token);
   await getMarket('OE-NY', state.token);
@@ -261,10 +253,10 @@ const startup = async() => {
 };
 
 const trade = async (options) => {
-  while(true) {
+  while (true) {
     const location = ship(options.shipId).location;
 
-    if(!location) {
+    if (!location) {
       await getAccount();
       continue;
     }
@@ -272,17 +264,17 @@ const trade = async (options) => {
     beginTrip();
     const inCargo = cargo(options.shipId, options.good);
 
-    if(!inCargo) {
-      await fly(options.shipId, options.source);
+    if (!inCargo) {
       await refuel(options.shipId, options.fuel);
+      await fly(options.shipId, options.source);
       const toBuy = fillHold(options.shipId, options.good, options.creditReserve);
       await buy(options.shipId, options.good, toBuy);
     }
 
+    await refuel(options.shipId, options.fuel);
     await fly(options.shipId, options.destination);
     const toSell = goodQuantity(options.shipId, options.good);
     await sell(options.shipId, options.good, toSell);
-    await refuel(options.shipId, options.fuel);
 
     endTrip();
 
@@ -294,7 +286,7 @@ const trade = async (options) => {
 
     console.log(report(reports));
 
-    if(state.user.credits < 1000) {
+    if (state.user.credits < 1000) {
       console.log('You\'re broke! Go home.');
       await timeout(4);
       return;
@@ -302,10 +294,10 @@ const trade = async (options) => {
   }
 };
 
-const explore = async(options) => {
+const explore = async (options) => {
   const symbols = unexploredLocations().map(x => x.symbol);
 
-  for(let i = 0; i < symbols.length; i++) {
+  for (let i = 0; i < symbols.length; i++) {
     await refuel(options.shipId, 100);
     await fly(options.shipId, symbols[i]);
   }
@@ -314,7 +306,7 @@ const explore = async(options) => {
   console.log('Exploration complete.');
 };
 
-const richMan = async() => {
+const richMan = async () => {
   await logIn({
     token: '212132e0-a388-4d74-a176-ff74c01e6f94',
     username: 'dcabines'
@@ -322,7 +314,7 @@ const richMan = async() => {
 
   const myShip = ship('ckm2vc3vk16160214989jh86ygmm');
 
-  if(myShip.location) {
+  if (myShip.location) {
     await getMarket(myShip.location, state.token);
   }
 
@@ -336,7 +328,7 @@ const richMan = async() => {
   });
 };
 
-const richExplorer = async() => {
+const richExplorer = async () => {
   await logIn({
     token: '212132e0-a388-4d74-a176-ff74c01e6f94',
     username: 'dcabines'
@@ -344,7 +336,7 @@ const richExplorer = async() => {
 
   const myShip = ship('ckm2vc3vk16160214989jh86ygmm');
 
-  if(myShip.location) {
+  if (myShip.location) {
     await getMarket(myShip.location);
   }
 
@@ -353,7 +345,7 @@ const richExplorer = async() => {
   });
 };
 
-const poorMan = async() => {
+const poorMan = async () => {
   await logIn();
   await startup();
 
@@ -369,13 +361,10 @@ const poorMan = async() => {
   await poorMan();
 };
 
-const explorer = async() => {
+const explorer = async () => {
   await logIn();
   await startup();
   await explore({
     shipId: state.user.ships[0].id
   });
 };
-
-console.clear();
-richMan();

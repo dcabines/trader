@@ -1,0 +1,1 @@
+export const root = 'https://api.spacetraders.io';
