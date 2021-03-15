@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
 import { root } from './settings.js';
 import { timeout } from "./util.js";
 import { saveState } from "./state.js";
