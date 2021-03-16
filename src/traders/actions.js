@@ -1,10 +1,10 @@
 import { timeout, userName } from './util.js';
-import { getUser, getSystems, getMarket, createFlightPlan } from './api.js';
+import { getUser, getSystems, takeLoan, getMarket, createFlightPlan } from './api.js';
 import { state, ship, cargo, marketItem } from './state.js';
 import { beginTrip, endTrip } from "./archive.js";
 import { availableReport, flightReport, buyReport, creditReport, sellReport } from './report.js';
 
-export function getAccount() { return getUser(state.user.username, state.token).then(timeout(1)); }
+export const getAccount = () => getUser(state.user.username, state.token);
 
 export async function getMarkets() {
   for (const ship of state.user.ships) {

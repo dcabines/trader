@@ -25,6 +25,6 @@ const http = async(method, path, fetchBody, token) => {
   return json;
 };
 
-export function get(path, token) { return http('GET', path, null, token); }
-export function post(path, body, token) { return http('POST', path, body, token); }
-export function put(path, body, token) { return http('PUT', path, body, token); }
+export const get = (path, token) => http('GET', path, null, token);
+export const post = (path, body, token) => http('POST', path, body, token);
+export const put = (path, body, token) => http('PUT', path, body, token);

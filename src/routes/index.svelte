@@ -1,19 +1,14 @@
 <script>
-  import * as api from '../traders/api';
-  let token = '';
+  import { json, saveState } from '../traders/state';
+    const login = () => fetch("/login");
 
-  async function login() {
-    await fetch('/login');
-    const state = await fetch('/state.json').then(res => res.json());
-    console.log(state);
-    token = state.token;
-  }
+  const fetchState = () =>
+    fetch("/state.json")
+      .then((res) => res.json())
+      .then(saveState);
 </script>
 
-<button on:click="{login}">
-  login
-</button>
+<button on:click={login}>login</button>
+<button on:click={fetchState}>state</button>
 
-<pre>{token}</pre>
-
-<button on:click="{api.getStatus}">status</button>
+<pre>{$json}</pre>
