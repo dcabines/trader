@@ -1,4 +1,3 @@
-import { state, systemLocation } from "./state.js";
 import { archive } from "./archive.js";
 
 const reportHeader = '/*\\';
@@ -38,8 +37,8 @@ export const planetReport = (planet) => [`${planet.name}  ${planet.symbol}`, ...
 export function systemReport() { return [].concat(...archive.planets.sort(sortLocations).map(x => [...planetReport(x), ''])); }
 export function buyReport(order) { return `Bought ${order.quantity} ${order.good} for ${order.total} at ${order.pricePerUnit} each.`; }
 export function sellReport(order) { return `Sold ${order.quantity} ${order.good} for ${order.total}.`; }
-export function creditReport() { return `${state.user.credits} credits remaining.`; }
-export function flightReport() { return `Flying to ${systemLocation(state.flightPlan.destination).name}.`; }
+// export function creditReport() { return `${state.user.credits} credits remaining.`; }
+// export function flightReport() { return `Flying to ${systemLocation(state.flightPlan.destination).name}.`; }
 export function tripReport() { return `Completed trip number ${archive.trips}.`; }
 export function profitReport() { return `${archive.lastProfit} profit.`; }
 export function totalProfitReport() { return `${archive.totalProfit} total profit.`; }
