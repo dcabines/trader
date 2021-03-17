@@ -1,5 +1,5 @@
 <script>
-  import { json, saveState } from '../traders/state';
+  import { saveState } from '../traders/state';
     const login = () => fetch("/login");
 
   const fetchState = () =>
@@ -10,5 +10,3 @@
 
 <button on:click={login}>login</button>
 <button on:click={fetchState}>state</button>
-
-<pre>{$json}</pre>

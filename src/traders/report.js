@@ -9,7 +9,7 @@ const sortLocations = (a, b) => a.name < b.name ? -1 : 1;
 const sortMarket = (a, b) => a.symbol < b.symbol ? -1 : 1;
 const marketLine = (item) => `${item.symbol}  ${item.pricePerUnit}  ${item.quantityAvailable}`;
 
-const marketReport = (marketplace) => {
+export const marketReport = (marketplace) => {
   const header = {
     symbol: 'name',
     pricePerUnit: 'price',

@@ -1,4 +1,4 @@
-import { get, put, post } from './http.js';
+import {get, put, post } from './http.js';
 
 let username = null;
 let token = null;
@@ -24,6 +24,7 @@ export const getSystem = (system) => get(`/game/systems/${system}`, token);
 export const getLocations = (system, type) => get(`/game/systems/${system}/locations?type=${type}`, token);
 export const getLocation = (location) => get(`/game/locations/${location}`, token);
 export const getMarket = (location) => get(`/game/locations/${location}/marketplace`, token);
+export const flightPlans = () => get('/game/systems/OE/flight-plans', token);
 export const createFlightPlan = (destination) => post(`/users/${username}/flight-plans`, { shipId, destination }, token);
 export const getFlightPlan = (flightPlanId) => get(`/users/${username}/flight-plans/${flightPlanId}`, token);
 export const buyGood = (good, quantity) => post(`/users/${username}/purchase-orders`, { shipId, good, quantity: Math.trunc(quantity) }, token);
