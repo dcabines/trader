@@ -1,0 +1,53 @@
+body,
+button {
+  background: #212a2e;
+  color: #f7f8f8;
+  font-family: monospace;
+  font-size: 16px;
+}
+
+button {
+  box-shadow: 0px 1px 0px 0px #1c1b18;
+  background: linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
+  background-color: #eae0c2;
+  border-radius: 6px;
+  border: 2px solid #333029;
+  display: inline-block;
+  cursor: pointer;
+  color: #505739;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffffff;
+  white-space: nowrap;
+}
+
+button:hover {
+  background: linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
+  background-color: #ccc2a6;
+}
+
+button:active {
+  position: relative;
+  top: 1px;
+}
+
+input,
+select {
+  box-shadow: 0px 1px 0px 0px #1c1b18;
+  background: linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
+  background-color: #eae0c2;
+  border-radius: 6px;
+  border: 2px solid #333029;
+  display: inline-block;
+  color: #505739;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin: 10px 0;
+  padding: 10px;
+  min-width: 0;
+}

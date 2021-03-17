@@ -4,13 +4,18 @@
 </script>
 
 <div>
-  <div class="card">
-    <button on:click={api.getStatus}>status</button>
-    <button on:click={api.getUser}>user</button>
-    <button on:click={api.getSystems}>system</button>
-    <button on:click={api.flightPlans}>flight plans</button>
-    <button on:click={api.getLoans}>loans</button>
-    <button on:click={api.getShips}>ships</button>
+  <div class="card menu">
+    <div>
+      <button on:click={api.getStatus}>status</button>
+      <button on:click={api.getUser}>user</button>
+      <button on:click={api.getSystems}>system</button>
+    </div>
+
+    <div>
+      <button on:click={api.flightPlans}>flight plans</button>
+      <button on:click={api.getLoans}>loans</button>
+      <button on:click={api.getShips}>ships</button>
+    </div>
   </div>
 
   {#if $error}
@@ -34,11 +39,11 @@
 </div>
 
 <style>
-  .card {
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    margin: 10px 0;
-    padding: 10px;
-    min-width: 0;
+  .menu > div {
+    display: flex;
+  }
+
+  .menu button {
+    flex: 1;
   }
 </style>
