@@ -1,11 +1,38 @@
 <script>
-  import { derived } from 'svelte/store';
+  import { derived } from "svelte/store";
   import { state } from "../traders/state";
-  export const json = derived(state, $state => JSON.stringify($state, null, '  '));
+  import Tree from "../components/tree.svelte";
+
+  const makeTree = (label, obj) => {
+    console.log(obj);
+    return ({
+    label,
+    children: Object.keys(obj).map(key => ({ label: key }))
+  });
+  };
+
+  // Object.keys(obj).map(key => {
+  //     const value = obj[key];
+  //     console.log(key, value)
+  //     if(typeof(value) === 'string') {
+  //       return { label: `${key}: ${value}` };
+  //     }
+
+  //     return makeTree(key, value);
+  //   })
+
+  const json = derived(state, ($state) => JSON.stringify($state, null, "  "));
+  const tree = derived(state, ($state) => makeTree('state', $state));
 </script>
 
-<div class="card">
-  <pre>{$json}</pre>
+<div>
+  <div class="card">
+    <Tree tree={$tree} />
+  </div>
+
+  <div class="card">
+    <pre>{$json}</pre>
+  </div>
 </div>
 
 <style>
