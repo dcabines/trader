@@ -1,5 +1,4 @@
 <script>
-  import { derived } from "svelte/store";
   import { ship, system, marketplace } from "../traders/state";
   import * as api from "../traders/api";
   import Market from "../components/market.svelte";
@@ -14,10 +13,10 @@
 
   export let shipId;
   const myShip = ship(shipId);
-  const shipLocation = derived(myShip, ($myShip) => $myShip.location);
-  const shipCargo = derived(myShip, ($myShip) => $myShip.cargo);
+  $: shipLocation = $myShip.location;
+  $: shipCargo = $myShip.cargo;
   const fly = () => api.createFlightPlan(destination);
-  const market = () => api.getMarket($shipLocation);
+  const market = () => api.getMarket(shipLocation);
   const buy = () => api.buyGood(buyItem, buyQuantity);
   const sell = () => api.sellGood(sellItem, sellQuantity);
 </script>
@@ -58,13 +57,13 @@
           </select>
         </div>
 
-        {#if $shipCargo.length > 0}
+        {#if shipCargo.length > 0}
           <div>
             <button on:click={sell}>sell</button>
             <input class="small" bind:value={sellQuantity} />
 
             <select bind:value={sellItem}>
-              {#each $shipCargo as item}
+              {#each shipCargo as item}
                 <option />
                 <option value={item.good}>{item.good}</option>
               {/each}
@@ -74,9 +73,9 @@
       {/if}
     {/if}
 
-    {#if $shipCargo.length > 0}
+    {#if shipCargo.length > 0}
       <div class="card">
-        {#each $shipCargo as item}
+        {#each shipCargo as item}
           <div>{item.quantity} {item.good}</div>
         {/each}
       </div>
