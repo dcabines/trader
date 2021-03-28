@@ -7,7 +7,7 @@
       const newId = `${id}::${key}`;
       const value = obj[key];
 
-      if (typeof value === "object") {
+      if (value !== null && typeof value === "object") {
         return makeTree(newId, key, value);
       }
 

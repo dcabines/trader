@@ -7,7 +7,7 @@
   <div>
     <span>Loans</span>
     {#each $userLoans as loan}
-      <UserLoan {loan} />
+      <UserLoan loanId={loan.id} />
     {/each}
   </div>
 {/if}

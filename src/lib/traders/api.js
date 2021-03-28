@@ -16,6 +16,7 @@ export const getUser = () => userGet();
 export const takeLoan = (type) => userPost('loans', { type });
 export const payLoan = (loanId) => userPut(`loans/${loanId}`, {});
 export const buyShip = (location, type) => userPost('ships', { location, type });
+export const sellShip = (type) => userGet(); // TODO
 export const createFlightPlan = (shipId, destination) => userPost('flight-plans', { shipId, destination });
 export const getFlightPlan = (flightPlanId) => userGet(`flight-plans/${flightPlanId}`);
 export const buyGood = (shipId, good, quantity) => userPost('purchase-orders', { shipId, good, quantity: Math.trunc(quantity) });

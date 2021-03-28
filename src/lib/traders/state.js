@@ -13,7 +13,8 @@ const internal = writable({
   loans: [],
   systems: [],
   ships: [],
-  location: {}
+  location: {},
+  flightPlan: {}
 });
 
 export const state = derived(internal, $state => ({...$state }));

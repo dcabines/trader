@@ -1,38 +1,37 @@
 <script>
-  import * as api from '$lib/traders/api';
+  import * as api from "$lib/traders/api";
+  import { state } from "$lib/traders/state";
 
-  export let loan;
+  export let loanId;
+  $: loan = $state.user.loans.find((x) => x.id === loanId);
 
-  const payLoan = () => {
-    api.payLoan(loan.type);
-  };
+  const payLoan = () => api.payLoan(loan.type);
 </script>
 
-<div class="card">
-  <div>
-    <button on:click={payLoan}>Pay</button>
+{#if loan}
+  <div class="card">
+    <div>
+      <button on:click={payLoan}>pay</button>
+      <span>{loan.id}</span>
+    </div>
+    <div>
+      <span>Type</span>
+      <span>{loan.type}</span>
+    </div>
+    <div>
+      <span>Due</span>
+      <span>{new Date(loan.due).toDateString()}</span>
+    </div>
+    <div>
+      <span>Repayment Amount</span>
+      <span>{loan.repaymentAmount}</span>
+    </div>
+    <div>
+      <span>Status</span>
+      <span>{loan.status}</span>
+    </div>
   </div>
-  <div>
-    <span>Type</span>
-    <span>{loan.type}</span>
-  </div>
-  <div>
-    <span>Id</span>
-    <span>{loan.id}</span>
-  </div>
-  <div>
-    <span>Due</span>
-    <span>{new Date(loan.due).toDateString()}</span>
-  </div>
-  <div>
-    <span>Repayment Amount</span>
-    <span>{loan.repaymentAmount}</span>
-  </div>
-  <div>
-    <span>Status</span>
-    <span>{loan.status}</span>
-  </div>
-</div>
+{/if}
 
 <style>
   .card {

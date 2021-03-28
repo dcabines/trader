@@ -5,8 +5,8 @@
   export let shipId;
   $: ship = $state.user.ships.find((x) => x.id === shipId);
 
-  const sellGood = async (good) => {
-    await api.sellGood(shipId, good, 1);
+  const sellGood = async (good, quantity) => {
+    await api.sellGood(shipId, good, quantity);
     await api.getMarket(ship.location);
 
     const thisState = $state;
@@ -40,7 +40,7 @@
       <div>
         <span>
           {#if ship.location}
-            <button on:click={() => sellGood(item.good)}>sell</button>
+            <button on:click={() => sellGood(item.good, item.quantity)}>sell</button>
           {/if}
           {item.good}
         </span>
