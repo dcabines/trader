@@ -1,5 +1,6 @@
 import sirv from 'sirv';
 import polka from 'polka';
+const PORT = process.env.PORT || 5000
 
 const assets = sirv('build', {
   maxAge: 31536000, // 1Y
@@ -8,7 +9,4 @@ const assets = sirv('build', {
 
 polka()
   .use(assets)
-  .listen(3000, err => {
-    if (err) throw err;
-    console.log('> Ready on localhost:3000~!');
-  });
+  .listen(PORT);
