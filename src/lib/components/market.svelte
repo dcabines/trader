@@ -1,7 +1,7 @@
 <script>
-  import { marketplace } from "../traders/state";
-  import { state, saveState } from "../traders/state";
-  import * as api from "../traders/api";
+  import { marketplace } from '$lib/traders/state';
+  import { state, saveState } from '$lib/traders/state';
+  import * as api from '$lib/traders/api';
 
   export let shipId;
   $: ship = $state.user.ships.find((x) => x.id === shipId);
@@ -15,7 +15,7 @@
   };
 
   const buyGood = async (symbol) => {
-    await api.buyGood(symbol, 1);
+    await api.buyGood(shipId, symbol, 1);
     await api.getMarket(ship.location);
 
     const thisState = $state;
@@ -53,7 +53,7 @@
     </div>
     {#each items as item}
       <div>
-        <span>
+        <span class="nowrap">
           <button on:click={() => buyGood(item.symbol)}>buy</button>
           {item.symbol}
         </span>
@@ -85,5 +85,9 @@
 
   .right {
     text-align: right;
+  }
+
+  .nowrap {
+    white-space: nowrap;
   }
 </style>

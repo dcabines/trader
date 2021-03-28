@@ -1,7 +1,7 @@
 <script lang="typescript">
-  import { userShip, system, marketplace } from "../traders/state";
-  import * as api from "../traders/api";
-  import Market from "../components/market.svelte";
+  import { userShip, system, marketplace } from '$lib/traders/state';
+  import * as api from '$lib/traders/api';
+  import Market from "$lib/components/market.svelte";
 
   let destination = "OE-PM";
 

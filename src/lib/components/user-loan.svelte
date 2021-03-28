@@ -1,5 +1,5 @@
 <script>
-  import * as api from "../traders/api";
+  import * as api from '$lib/traders/api';
 
   export let loan;
 

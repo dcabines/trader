@@ -1,6 +1,6 @@
 <script>
-  import { userLoans } from "../traders/state";
-  import UserLoan from "../components/user-loan.svelte";
+  import { userLoans } from '$lib/traders/state';
+  import UserLoan from "$lib/components/user-loan.svelte";
 </script>
 
 {#if $userLoans.length > 0}

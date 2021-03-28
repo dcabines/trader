@@ -2,8 +2,13 @@ import { writable, derived } from 'svelte/store';
 
 const internal = writable({
   status: '',
+  token: '98002005-e53b-4076-9e79-b8a84bff23ac',
+  loggedIn: false,
   error: {},
-  user: {},
+  user: {
+    username: 'temp-123-01',
+    ships: []
+  },
   ship: {},
   loans: [],
   systems: [],
@@ -12,7 +17,7 @@ const internal = writable({
 });
 
 export const state = derived(internal, $state => ({...$state }));
-export const loggedIn = derived(state, $state => Boolean($state.user.username));
+export const loggedIn = derived(state, $state => Boolean($state.loggedIn));
 export const saveState = (data) => internal.update(x => ({...x, ...data }));
 
 export const status = derived(internal, $state => $state.status || '');
@@ -39,4 +44,4 @@ export const maxAfford = (good, creditReserve) => {
   exports.credits = internal.user.credits - creditReserve;
   exports.price = marketItem(good).pricePerUnit;
   return credits / price;
-}
+};

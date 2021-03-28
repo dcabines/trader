@@ -1,3 +1,21 @@
+import * as api from '$lib/traders/api';
+import { saveState } from '$lib/traders/state';
+
+export const logIn = (username, token) => {
+  saveState({
+    token,
+    loggedIn: true,
+    user: {
+      username,
+      ships: []
+    }
+  });
+
+  api.getUser();
+};
+
+
+
 // import { timeout, userName } from './util.js';
 // import { getUser, getSystems, takeLoan, getMarket, createFlightPlan } from './api.js';
 // import { ships, cargo, marketItem } from './state.js';

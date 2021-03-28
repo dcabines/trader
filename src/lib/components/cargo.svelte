@@ -1,12 +1,12 @@
 <script>
-  import { state, saveState } from "../traders/state";
-  import * as api from "../traders/api";
+  import { state, saveState } from "$lib/traders/state";
+  import * as api from "$lib/traders/api";
 
   export let shipId;
-  $: ship = $state.user.ships.find(x => x.id === shipId);
+  $: ship = $state.user.ships.find((x) => x.id === shipId);
 
   const sellGood = async (good) => {
-    await api.sellGood(good, 1);
+    await api.sellGood(shipId, good, 1);
     await api.getMarket(ship.location);
 
     const thisState = $state;
@@ -30,16 +30,18 @@
 
 {#if ship.cargo.length > 0}
   <div class="card">
-      <span>{ship.spaceAvailable}/{ship.maxCargo} Cargo</span>
+    <span>{ship.spaceAvailable}/{ship.maxCargo} Cargo</span>
     <div>
-      <span></span>
+      <span />
       <span class="right">Quantity</span>
       <span class="right">Volume</span>
     </div>
     {#each ship.cargo as item}
       <div>
         <span>
-          <button on:click={() => sellGood(item.good)}>sell</button>
+          {#if ship.location}
+            <button on:click={() => sellGood(item.good)}>sell</button>
+          {/if}
           {item.good}
         </span>
         <span class="right">{item.quantity}</span>

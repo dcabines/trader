@@ -1,5 +1,5 @@
 <script>
-  import Location from "../components/location.svelte";
+  import Location from "$lib/components/location.svelte";
   export let system;
 </script>
 

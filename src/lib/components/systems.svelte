@@ -1,7 +1,7 @@
 <script>
-  import * as api from "../traders/api";
-  import { systems } from "../traders/state";
-  import System from "../components/system.svelte";
+  import * as api from '$lib/traders/api';
+  import { systems } from '$lib/traders/state';
+  import System from "$lib/components/system.svelte";
 </script>
 
 <div>

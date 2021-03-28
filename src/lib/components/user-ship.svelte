@@ -1,5 +1,5 @@
 <script>
-  import { state } from "../traders/state";
+  import { state } from '$lib/traders/state';
   import Cargo from "./cargo.svelte";
   import Market from "./market.svelte";
 
@@ -12,6 +12,7 @@
     <span>ID</span>
     <span>{ship.id}</span>
   </div>
+  {#if ship.location}
   <div>
     <span>Location</span>
     <span>{ship.location}</span>
@@ -20,6 +21,7 @@
     <span>Coords</span>
     <span>{ship.x}-{ship.x}</span>
   </div>
+  {/if}
   <div>
     <span>Space Available</span>
     <span>{ship.spaceAvailable}</span>

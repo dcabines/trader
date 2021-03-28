@@ -1,13 +1,7 @@
 <script>
-  import * as api from "../traders/api";
-  import { state } from "../traders/state";
+  import * as api from '$lib/traders/api';
+  import { state } from '$lib/traders/state';
 </script>
-
-{#if $state.error.message}
-  <div class="card error">
-    {$state.error.message}
-  </div>
-{/if}
 
 <div class="card">
   <div>
@@ -19,9 +13,3 @@
     {$state.status}
   {/if}
 </div>
-
-<style>
-  .error {
-    border-color: red;
-  }
-</style>

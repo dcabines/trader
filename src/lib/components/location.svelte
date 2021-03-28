@@ -1,8 +1,17 @@
 <script>
+  import * as api from '$lib/traders/api';
+  import { state } from '$lib/traders/state';
   export let location;
+  $: ship = $state.user.ships[0];
+  const fly = () => api.createFlightPlan(ship.id, location.symbol);
 </script>
 
 <div class="card">
+  {#if ship}
+  <div>
+    <button on:click={fly}>fly</button>
+  </div>
+  {/if}
   <div>
     <span>Name</span>
     <span>{location.name}</span>

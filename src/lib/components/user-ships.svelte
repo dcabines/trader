@@ -1,5 +1,5 @@
 <script>
-  import { state } from "../traders/state";
+  import { state } from '$lib/traders/state';
   import UserShip from "./user-ship.svelte";
 
 </script>

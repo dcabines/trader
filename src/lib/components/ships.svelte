@@ -1,6 +1,6 @@
 <script>
-  import * as api from "../traders/api";
-  import { ships } from "../traders/state";
+  import * as api from '$lib/traders/api';
+  import { ships } from '$lib/traders/state';
   import Ship from "./ship.svelte";
 </script>
 

@@ -1,27 +1,28 @@
 <script>
-  import * as api from "../traders/api";
+  import { state } from "$lib/traders/state";
+  import * as api from '$lib/traders/api';
+  import * as actions from '$lib/traders/actions';
 
-  let username = "temp-123-01";
-  let token = "98002005-e53b-4076-9e79-b8a84bff23ac";
-  let shipId = "ckmmtoqga48522015s6hgmquamt";
+  let username = $state.user.username;
+  let token = $state.token;
 
-  const createToken = () => {
-    api.createToken(username);
+  const createToken = async () => {
+    await api.createToken(username);
+    username = $state.user.username;
+    token = $state.token;
   };
 
-  const logIn = () => {
-    api.logIn({ username, token, shipId });
-  };
+  const logIn = () => actions.logIn(username, token);
 </script>
 
 <div class="card">
   <div>
-    <button on:click={createToken} disabled={!username}>create</button>
+    <button on:click={createToken}>create</button>
     <input bind:value={username} />
   </div>
 
   <div>
-    <button on:click={logIn} disabled={!username}>log in</button>
+    <button on:click={logIn}>log in</button>
     <input bind:value={token} />
   </div>
 </div>
