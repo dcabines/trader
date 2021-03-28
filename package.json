@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
-    "start": "svelte-kit start"
+    "start": "node server.js"
   },
   "devDependencies": {
     "@sveltejs/adapter-node": "next",
@@ -19,5 +19,9 @@
   "type": "module",
   "engines": {
     "node": ">= 12.17.0"
+  },
+  "dependencies": {
+    "polka": "^0.5.2",
+    "sirv": "^1.0.11"
   }
 }
