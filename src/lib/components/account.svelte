@@ -1,18 +1,16 @@
 <script>
-  import { state } from "$lib/traders/state";
-  import * as api from '$lib/traders/api';
-  import * as actions from '$lib/traders/actions';
+  import state from "$lib/state";
 
   let username = $state.user.username;
   let token = $state.token;
 
   const createToken = async () => {
-    await api.createToken(username);
+    await state.createToken(username);
     username = $state.user.username;
     token = $state.token;
   };
 
-  const logIn = () => actions.logIn(username, token);
+  const logIn = () => state.logIn(username, token);
 </script>
 
 <div class="card">
@@ -32,7 +30,12 @@
     display: flex;
   }
 
-  .card div > * {
+  .card div > button {
+    flex: none;
+    width: 60px;
+  }
+
+  .card div > input {
     flex: 1;
   }
 </style>

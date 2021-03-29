@@ -1,5 +1,5 @@
 <script>
-  import { state, loggedIn } from "$lib/traders/state";
+  import state from '$lib/state';
   import Account from "$lib/components/account.svelte";
   import Game from "$lib/components/game.svelte";
   import Ships from "$lib/components/ships.svelte";
@@ -11,6 +11,7 @@
   import Systems from "$lib/components/systems.svelte";
   import Error from "$lib/components/error.svelte";
   import FlightPlan from "$lib/components/flight-plan.svelte";
+  import Markets from "$lib/components/markets.svelte";
   $: hasLoan = $state.user.loans && $state.user.loans.length > 0;
   $: ship = $state.user.ships[0];
 </script>
@@ -20,7 +21,7 @@
     <Error />
     <Game />
     <Account />
-    {#if $loggedIn}
+    {#if $state.loggedIn}
       {#if !hasLoan}
         <Loans />
       {/if}
@@ -32,10 +33,12 @@
       {#if ship && ship.location}
         <Systems />
       {/if}
+
+      <Markets />
     {/if}
   </div>
   <div>
-    {#if $loggedIn}
+    {#if $state.loggedIn}
       <User />
       <UserLoans />
       <UserShips />
@@ -46,7 +49,7 @@
     {/if}
   </div>
   <div>
-    <TreeView data={$state} />
+    <TreeView label="state" data={$state} />
   </div>
 </div>
 

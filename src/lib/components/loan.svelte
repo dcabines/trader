@@ -1,11 +1,9 @@
 <script>
-  import * as api from '$lib/traders/api';
+  import state from "$lib/state";
 
   export let loan;
 
-  const takeLoan = () => {
-    api.takeLoan(loan.type);
-  };
+  const takeLoan = () => state.takeLoan(loan.type);
 </script>
 
 <div class="card">

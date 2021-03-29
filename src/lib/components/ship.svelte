@@ -1,9 +1,10 @@
 <script>
-  import * as api from '$lib/traders/api';
+  import state from "$lib/state";
+
   export let ship;
 
   const buyShip = (purchaseLocation) =>
-    api.buyShip(purchaseLocation, ship.type);
+    state.buyShip(purchaseLocation, ship.type);
 </script>
 
 <div class="card">

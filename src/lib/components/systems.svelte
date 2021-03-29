@@ -1,17 +1,17 @@
 <script>
-  import * as api from "$lib/traders/api";
-  import { systems } from "$lib/traders/state";
+  import state from "$lib/state";
   import System from "$lib/components/system.svelte";
+  $: systems = $state.systems;
 </script>
 
 <div>
   <span>
-    {#if $systems.length === 0}
-      <button on:click={api.getSystems}>fetch</button>
+    {#if systems.length === 0}
+      <button on:click={state.getSystems}>fetch</button>
     {/if}
     Systems
   </span>
-  {#each $systems as system}
+  {#each systems as system}
     <System {system} />
   {/each}
 </div>

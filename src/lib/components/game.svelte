@@ -1,15 +1,15 @@
 <script>
-  import * as api from '$lib/traders/api';
-  import { state } from '$lib/traders/state';
+  import state from '$lib/state';
+  $: status = $state.status
 </script>
 
 <div class="card">
   <div>
-    <button on:click={api.getStatus}>fetch</button>
+    <button on:click={state.getStatus}>fetch</button>
     <span>Status</span>
   </div>
 
-  {#if $state.status}
-    {$state.status}
+  {#if status}
+    {status}
   {/if}
 </div>

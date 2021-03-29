@@ -1,14 +1,13 @@
-import {get as getStore, derived } from 'svelte/store';
 import { root } from './settings.js';
-import { timeout } from "./util.js";
-import { state, saveState } from "./state.js";
-import { saveArchive } from "./archive.js";
 
-const userPath = derived(state, $state => `/users/${$state.user.username}`);
+export const authorization = {
+  username: '',
+  token: ''
+};
+
+const userPath = () => `/users/${authorization.username}`;
 
 const http = async(method, path, fetchBody) => {
-  const current = getStore(state);
-  const token = current.token;
   const body = fetchBody ? JSON.stringify(fetchBody) : null;
 
   const res = await fetch(`${root}${path}`, {
@@ -16,17 +15,11 @@ const http = async(method, path, fetchBody) => {
     body,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${authorization.token}`
     },
   });
 
-  const json = await res.json();
-  // await timeout(1);
-
-  saveState(json);
-  saveArchive();
-
-  return json;
+  return await res.json();
 };
 
 export const get = (path) => http('GET', path, null);
@@ -34,7 +27,7 @@ export const post = (path, body) => http('POST', path, body);
 export const put = (path, body) => http('PUT', path, body);
 
 const addUserPath = (path) => {
-  const parts = [getStore(userPath), path];
+  const parts = [userPath(), path];
   const combined = parts.filter(Boolean).join('/');
   return combined;
 };

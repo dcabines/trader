@@ -1,28 +1,20 @@
 <script>
   import state from "$lib/state";
 
-  export let shipId;
-  $: ship = $state.user.ships.find((x) => x.id === shipId);
-  $: marketplace = $state.location.marketplace || [];
+  export let symbol;
+
+  $: location = $state.locations.find((x) => x.symbol === symbol) || {};
+  $: marketplace = location.marketplace || [];
 
   $: items = marketplace.sort((a, b) =>
     a.pricePerUnit < b.pricePerUnit ? -1 : 1
   );
-
-  const getMarket = () => state.getMarket(ship.location);
-
-  const buyGood = async (symbol, quantity) => {
-    await state.buyGood(ship.id, symbol, quantity);
-    await state.getMarket(ship.location);
-  };
 </script>
 
 <div class="card">
   <div>
-    <span>
-      <button on:click={getMarket}>fetch</button>
-      Marketplace
-    </span>
+    <span>{location.name}</span>
+    <span>{location.symbol} {location.type}</span>
   </div>
   {#if items.length > 0}
     <div>
@@ -33,10 +25,7 @@
     </div>
     {#each items as item}
       <div>
-        <span class="nowrap">
-          <button on:click={() => buyGood(item.symbol, 50)}>buy</button>
-          {item.symbol}
-        </span>
+        <span>{item.symbol}</span>
         <span class="right">{item.quantityAvailable}</span>
         <span class="right">{item.volumePerUnit}</span>
         <span class="right">{item.pricePerUnit}</span>
@@ -65,9 +54,5 @@
 
   .right {
     text-align: right;
-  }
-
-  .nowrap {
-    white-space: nowrap;
   }
 </style>

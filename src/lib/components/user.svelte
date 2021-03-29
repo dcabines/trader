@@ -1,11 +1,11 @@
 <script>
   import * as api from '$lib/traders/api';
-  import { state, loggedIn } from '$lib/traders/state';
+  import state from '$lib/state';
   $: user = $state.user;
   $: token = $state.token;
 </script>
 
-{#if $loggedIn}
+{#if $state.loggedIn}
   <div class="card">
     <div>
       <button on:click={api.getUser}>account</button>

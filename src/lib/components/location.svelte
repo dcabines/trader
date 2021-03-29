@@ -1,37 +1,16 @@
 <script>
-  import * as api from "$lib/traders/api";
-  import { state, saveState } from "$lib/traders/state";
+  import state from "$lib/state";
+
   export let location;
+
   $: ship = $state.user.ships[0];
-
-  const fly = async () => {
-    await api.createFlightPlan(ship.id, location.symbol);
-
-    if (!$state.flightPlan) return;
-
-    const thisState = $state;
-    const thisShip = thisState.user.ships.find((x) => x.id === ship.id);
-    const otherShips = thisState.user.ships.filter((x) => x !== thisShip);
-
-    saveState({
-      location: {},
-      user: {
-        ...thisState.user,
-        ships: [
-          ...otherShips,
-          {
-            ...thisShip,
-            location: null,
-          },
-        ],
-      },
-    });
-  };
+  $: canFly = ship && ship.location && ship.location !== location.symbol;
+  const fly = () => state.fly(ship.id, location.symbol);
 </script>
 
 {#if location}
   <div class="card">
-    {#if ship && ship.location && ship.location !== location.symbol}
+    {#if canFly}
       <div>
         <button on:click={fly}>fly</button>
       </div>

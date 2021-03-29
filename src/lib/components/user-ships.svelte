@@ -1,7 +1,6 @@
 <script>
-  import { state } from '$lib/traders/state';
+  import state from '$lib/state';
   import UserShip from "./user-ship.svelte";
-
 </script>
 
 <div>

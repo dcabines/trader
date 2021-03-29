@@ -1,48 +1,12 @@
 <script>
-  import * as api from '$lib/traders/api';
-  import { saveState, state } from "$lib/traders/state";
-
+  import state from "$lib/state";
   $: flightPlan = $state.flightPlan;
-  const startLength = $state.flightPlan.timeRemainingInSeconds; 
-  $: remaining = startLength - flightPlan.timeRemainingInSeconds;
-  $: percent = remaining / startLength * 100;
-  $: ship = $state.user.ships.find((x) => x.id === flightPlan.ship);
-  $: otherShips = $state.user.ships.filter((x) => x !== ship);
-
-  const countdown = setInterval(() => {
-    saveState({
-      flightPlan: {
-        ...flightPlan,
-        timeRemainingInSeconds: flightPlan.timeRemainingInSeconds - 1,
-      },
-    });
-
-    if (flightPlan.timeRemainingInSeconds <= 0) {
-      clearInterval(countdown);
-
-      saveState({
-        flightPlan: {},
-        user: {
-          ...$state.user,
-          ships: [
-            ...otherShips,
-            {
-              ...ship,
-              location: flightPlan.destination,
-            },
-          ],
-        },
-      });
-
-      api.getMarket(flightPlan.destination);
-    }
-  }, 1000);
 </script>
 
 {#if flightPlan}
   <div class="card">
     <div class="progress">
-      <div class="bar" style="height:24px;width:{100-percent}%" />
+      <div class="bar" style="height:24px;width:{flightPlan.percentRamaining}%" />
     </div>
     <div>
       <span>ID</span>
@@ -61,7 +25,7 @@
       <span>{flightPlan.fuelRemaining}</span>
     </div>
     <div>
-      <span>Time Remaining In Seconds</span>
+      <span>Seconds Remaining</span>
       <span>{flightPlan.timeRemainingInSeconds}</span>
     </div>
     <div>

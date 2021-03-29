@@ -1,13 +1,12 @@
 <script>
   import { slide } from 'svelte/transition';
-  import { state, saveState } from '$lib/traders/state';
-
-  const clearError = () => saveState({ error: {} });
+  import state from '$lib/state';
+  $: message = $state.error && $state.error.message;
 </script>
 
-{#if $state.error.message}
-  <div class="card" on:click={clearError} transition:slide="{{delay: 250, duration: 300 }}">
-    {$state.error.message}
+{#if message}
+  <div class="card" on:click={state.clearError} transition:slide="{{delay: 250, duration: 300 }}">
+    {message}
   </div>
 {/if}
 

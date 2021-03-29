@@ -1,30 +1,13 @@
 <script>
-  import { state, saveState } from "$lib/traders/state";
-  import * as api from "$lib/traders/api";
+  import state from "$lib/state";
 
   export let shipId;
+
   $: ship = $state.user.ships.find((x) => x.id === shipId);
 
-  const sellGood = async (good, quantity) => {
-    await api.sellGood(shipId, good, quantity);
-    await api.getMarket(ship.location);
-
-    const thisState = $state;
-    const thisShip = thisState.user.ships.find((x) => x.id === shipId);
-    const otherShips = thisState.user.ships.filter((x) => x !== thisShip);
-
-    saveState({
-      user: {
-        ...thisState.user,
-        ships: [
-          ...otherShips,
-          {
-            ...thisShip,
-            ...thisState.ship,
-          },
-        ],
-      },
-    });
+  const sellGood = async (item) => {
+    await state.sellGood(ship.id, item.good, item.quantity);
+    await state.getMarket(ship.location);
   };
 </script>
 
@@ -40,7 +23,7 @@
       <div>
         <span>
           {#if ship.location}
-            <button on:click={() => sellGood(item.good, item.quantity)}>sell</button>
+            <button on:click={() => sellGood(item)}>sell</button>
           {/if}
           {item.good}
         </span>

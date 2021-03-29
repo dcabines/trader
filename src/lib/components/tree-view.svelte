@@ -18,8 +18,9 @@
 
 <script>
   import Tree from "./tree.svelte";
+  export let label;
   export let data;
-  const stateTree = (data) => makeTree(null, "state", data);
+  const stateTree = (data) => makeTree(null, label, data);
 
   $: tree = stateTree(data);
 </script>

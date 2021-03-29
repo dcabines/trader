@@ -1,11 +1,11 @@
 <script>
-  import * as api from "$lib/traders/api";
-  import { state } from "$lib/traders/state";
+  import state from "$lib/state";
 
   export let loanId;
+
   $: loan = $state.user.loans.find((x) => x.id === loanId);
 
-  const payLoan = () => api.payLoan(loan.type);
+  const payLoan = () => state.payLoan(loanId);
 </script>
 
 {#if loan}

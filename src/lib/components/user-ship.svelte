@@ -1,6 +1,6 @@
 <script>
   import * as api from "$lib/traders/api";
-  import { state } from "$lib/traders/state";
+  import state from "$lib/state";
   import Cargo from "./cargo.svelte";
   import Market from "./market.svelte";
 
