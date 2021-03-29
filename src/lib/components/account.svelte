@@ -1,13 +1,11 @@
 <script>
-  import state from "$lib/state";
+  import state from '$lib/state';
 
   let username = $state.user.username;
   let token = $state.token;
 
   const createToken = async () => {
-    await state.createToken(username);
-    username = $state.user.username;
-    token = $state.token;
+    token = await state.createToken(username);
   };
 
   const logIn = () => state.logIn(username, token);

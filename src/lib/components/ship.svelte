@@ -1,5 +1,5 @@
 <script>
-  import state from "$lib/state";
+  import state from '$lib/state';
 
   export let ship = {};
   const minPrice = ship.purchaseLocations

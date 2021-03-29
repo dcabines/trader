@@ -1,5 +1,5 @@
 <script>
-  import state from "$lib/state";
+  import state from '$lib/state';
   import Ship from "./ship.svelte";
   $: ships = $state.ships;
 </script>

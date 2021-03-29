@@ -1,12 +1,7 @@
 <script>
-  import state from "$lib/state";
+  export let location = {};
 
-  export let symbol;
-
-  $: location = $state.locations.find((x) => x.symbol === symbol) || {};
-  $: marketplace = location.marketplace || [];
-
-  $: items = marketplace.sort((a, b) =>
+  $: items = location.marketplace.sort((a, b) =>
     a.pricePerUnit < b.pricePerUnit ? -1 : 1
   );
 </script>

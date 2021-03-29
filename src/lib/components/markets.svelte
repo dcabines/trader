@@ -1,5 +1,5 @@
 <script>
-  import state from "$lib/state";
+  import state from '$lib/state';
   import Market from "$lib/components/market-log.svelte";
   $: locations = $state.locations;
 </script>
@@ -8,7 +8,7 @@
   <div>
     <span>Markets</span>
     {#each locations as location}
-      <Market symbol={location.symbol} />
+      <Market {location} />
     {/each}
   </div>
 {/if}

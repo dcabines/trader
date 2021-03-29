@@ -1,5 +1,5 @@
 <script>
-  import state from "$lib/state";
+  import state from '$lib/state';
   import UserLoan from "$lib/components/user-loan.svelte";
   $: loans = $state.user.loans;
 </script>

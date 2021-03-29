@@ -1,5 +1,5 @@
 <script>
-  import state from "$lib/state";
+  import state from '$lib/state';
   import System from "$lib/components/system.svelte";
   $: systems = $state.systems;
 </script>

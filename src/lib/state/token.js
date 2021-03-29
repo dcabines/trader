@@ -13,4 +13,6 @@ export const createToken = (update) => async(username) => {
   authorization.username = user.username;
 
   update(state => ({...state, loggedIn: true, token, user }));
+
+  return token;
 };

@@ -1,13 +1,11 @@
 <script>
   import * as api from "$lib/traders/api";
-  import state from "$lib/state";
   import Cargo from "./cargo.svelte";
   import Market from "./market.svelte";
 
-  export let shipId;
-  $: ship = $state.user.ships.find((x) => x.id === shipId);
+  export let ship = {};
 
-  const sellShip = () => api.sellShip(shipId);
+  const sellShip = () => api.sellShip(ship.id);
 </script>
 
 {#if ship}
@@ -61,10 +59,10 @@
       <span>{ship.weapons}</span>
     </div>
 
-    <Cargo shipId={ship.id} />
+    <Cargo {ship} />
 
     {#if ship.location}
-      <Market shipId={ship.id} />
+      <Market {ship} />
     {/if}
   </div>
 {/if}

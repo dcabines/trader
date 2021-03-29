@@ -1,9 +1,7 @@
 <script>
-  import state from "$lib/state";
+  import state from '$lib/state';
 
-  export let shipId;
-
-  $: ship = $state.user.ships.find((x) => x.id === shipId);
+  export let ship = {};
 
   const sellGood = async (item) => {
     await state.sellGood(ship.id, item.good, item.quantity);

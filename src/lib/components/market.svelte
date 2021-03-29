@@ -1,8 +1,7 @@
 <script>
-  import state from "$lib/state";
+  import state from '$lib/state';
 
-  export let shipId;
-  $: ship = $state.user.ships.find((x) => x.id === shipId);
+  export let ship = {};
   $: marketplace = $state.location.marketplace || [];
 
   $: items = marketplace.sort((a, b) =>

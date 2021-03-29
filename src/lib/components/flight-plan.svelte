@@ -1,12 +1,12 @@
 <script>
-  import state from "$lib/state";
+  import state from '$lib/state';
   $: flightPlan = $state.flightPlan;
 </script>
 
 {#if flightPlan}
   <div class="card">
     <div class="progress">
-      <div class="bar" style="height:24px;width:{flightPlan.percentRamaining}%" />
+      <div class="bar" style="width:{flightPlan.percentRamaining}%" />
     </div>
     <div>
       <span>ID</span>
@@ -67,6 +67,7 @@
   }
 
   .progress .bar {
+    height: 24px;
     background: white;
   }
 </style>
