@@ -1,3 +1,4 @@
+import { userName } from '$lib/traders/util';
 import { writable } from 'svelte/store';
 import { logIn } from './account';
 import { getLoans, takeLoan, payLoan } from './loan';
@@ -9,11 +10,11 @@ import { createToken } from './token';
 
 const initialState = {
   status: '',
-  token: '98002005-e53b-4076-9e79-b8a84bff23ac',
+  token: '',
   loggedIn: false,
   error: {},
   user: {
-    username: 'temp-123-01',
+    username: userName(),
     ships: [],
     loans: []
   },

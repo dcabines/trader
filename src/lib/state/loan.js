@@ -1,16 +1,16 @@
 import * as api from '$lib/traders/api';
 
 export const getLoans = (update) => async() => {
-  const { loans } = await api.getLoans();
-  update(state => ({...state, loans }));
+  const result = await api.getLoans();
+  update(state => ({...state, ...result }));
 };
 
 export const takeLoan = (update) => async(type) => {
-  const { user } = await api.takeLoan(type);
-  update(state => ({...state, user: {...state.user, ...user } }));
+  const result = await api.takeLoan(type);
+  update(state => ({...state, ...result }));
 };
 
 export const payLoan = (update) => async(loanId) => {
-  const loan = await api.payLoan(loanId);
-  update(state => ({...state, loan }));
+  const result = await api.payLoan(loanId);
+  update(state => ({...state, ...result }));
 };

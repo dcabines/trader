@@ -1,5 +1,5 @@
-export function timeout(seconds) { return new Promise(resolve => setTimeout(resolve, seconds * 1000)); }
-export function userName() { return `user-${new Date().getTime()}-${Math.random()}`; }
+export const timeout = (seconds) => new Promise(resolve => setTimeout(resolve, seconds * 1000));
+export const userName = () => `user-${new Date().getTime()}-${Math.random()}`;
 
 export function upsert(findKey) {
   return (destination, incoming) => {

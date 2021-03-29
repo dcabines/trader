@@ -25,21 +25,16 @@
     </span>
   </div>
   {#if items.length > 0}
-    <div>
-      <span />
-      <span class="right">Available</span>
-      <span class="right">Volume</span>
-      <span class="right">Price</span>
-    </div>
     {#each items as item}
       <div>
-        <span class="nowrap">
-          <button on:click={() => buyGood(item.symbol, 50)}>buy</button>
+        <span>
+          <button on:click={() => buyGood(item.symbol, 1)}>1</button>
+          <button on:click={() => buyGood(item.symbol, 5)}>5</button>
+          <button on:click={() => buyGood(item.symbol, 10)}>10</button>
+          <button on:click={() => buyGood(item.symbol, 50)}>50</button>
+          <button on:click={() => buyGood(item.symbol, 100)}>100</button>
           {item.symbol}
         </span>
-        <span class="right">{item.quantityAvailable}</span>
-        <span class="right">{item.volumePerUnit}</span>
-        <span class="right">{item.pricePerUnit}</span>
       </div>
     {/each}
   {/if}

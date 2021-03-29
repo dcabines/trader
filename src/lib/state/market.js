@@ -1,69 +1,53 @@
 import * as api from '$lib/traders/api';
+import { upsert } from '$lib/traders/util';
+
+const upsertId = upsert((existing, incoming) => existing.id === incoming.id);
+const upsertSymbol = upsert((existing, incoming) => existing.symbol === incoming.symbol);
 
 export const getMarket = (update) => async(market) => {
-  const { location } = await api.getMarket(market);
+  const result = await api.getMarket(market);
 
-  update(state => {
-    const thisLocation = state.locations.find(x => x.symbol === location.symbol);
-    const otherLocations = state.locations.filter(x => x !== thisLocation);
-
-    return {
-      ...state,
-      location,
-      locations: [
-        ...otherLocations,
-        location
-      ]
-    };
-  });
+  update(state => ({
+    ...state,
+    ...result,
+    locations: upsertSymbol(state.locations, result.location)
+  }));
 };
 
 export const buyGood = (update) => async(shipId, symbol, quantity) => {
-  const { credits, order, ship } = await api.buyGood(shipId, symbol, quantity);
+  const { credits, order, ship, error } = await api.buyGood(shipId, symbol, quantity);
 
-  update(state => {
-    const thisShip = state.user.ships.find((x) => x.id === ship.id);
-    const otherShips = state.user.ships.filter((x) => x !== thisShip);
+  if (error) {
+    update(state => ({...state, error }));
+    return;
+  }
 
-    return {
-      ...state,
-      credits,
-      order,
-      user: {
-        ...state.user,
-        ships: [
-          ...otherShips,
-          {
-            ...thisShip,
-            ...ship,
-          },
-        ],
-      },
-    };
-  });
+  update(state => ({
+    ...state,
+    credits,
+    order,
+    user: {
+      ...state.user,
+      ships: upsertId(state.user.ships, ship)
+    },
+  }));
 };
 
 export const sellGood = (update) => async(shipId, good, quantity) => {
-  const { credits, order, ship } = await api.sellGood(shipId, good, quantity);
+  const { credits, order, ship, error } = await api.sellGood(shipId, good, quantity);
 
-  update(state => {
-    const thisShip = state.user.ships.find((x) => x.id === ship.id);
-    const otherShips = state.user.ships.filter((x) => x !== thisShip);
+  if (error) {
+    update(state => ({...state, error }));
+    return;
+  }
 
-    return {
-      ...state,
-      credits,
-      order,
-      user: {
-        ...state.user,
-        ships: [
-          ...otherShips,
-          {
-            ...thisShip,
-            ...ship,
-          },
-        ],
-      },
-    };
-  });
+  update(state => ({
+    ...state,
+    credits,
+    order,
+    user: {
+      ...state.user,
+      ships: upsertId(state.user.ships, ship)
+    },
+  }));
 };

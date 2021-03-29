@@ -16,7 +16,12 @@ export const sellShip = (update) => async(loanId) => {
 };
 
 export const fly = (update) => async(shipId, destination) => {
-  const { flightPlan } = await api.createFlightPlan(shipId, destination);
+  const { flightPlan, error } = await api.createFlightPlan(shipId, destination);
+
+  if (error) {
+    update(state => ({...state, error }));
+    return;
+  }
 
   update(state => {
     const thisShip = state.user.ships.find((x) => x.id === shipId);
