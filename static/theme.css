@@ -63,3 +63,31 @@ select {
   border-top: 1px solid #ddd;
   border-radius: 0;
 }
+
+
+/* width */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  background: #ac3f3f;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: rgb(138, 70, 184);
+}
+
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(63, 156, 128);
+}
