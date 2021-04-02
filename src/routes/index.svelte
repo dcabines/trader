@@ -1,4 +1,5 @@
 <script>
+  import '$lib/style/global.css';
   import state from '$lib/state';
   import Account from "$lib/components/account.svelte";
   import Game from "$lib/components/game.svelte";
