@@ -3,7 +3,7 @@
   $: flightPlan = $state.flightPlan;
 </script>
 
-{#if flightPlan}
+{#if flightPlan.id}
   <div class="card">
     <div class="progress">
       <div class="bar" style="width:{flightPlan.percentRamaining}%" />

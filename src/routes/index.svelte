@@ -1,6 +1,6 @@
 <script>
-  import '$lib/style/global.css';
-  import state from '$lib/state';
+  import "$lib/style/global.css";
+  import state from "$lib/state";
   import Account from "$lib/components/account.svelte";
   import Game from "$lib/components/game.svelte";
   import Ships from "$lib/components/ships.svelte";
@@ -13,15 +13,19 @@
   import Error from "$lib/components/error.svelte";
   import FlightPlan from "$lib/components/flight-plan.svelte";
   import Markets from "$lib/components/markets.svelte";
-  $: hasLoan = $state.user.loans && $state.user.loans.length > 0;
+  $: hasLoan = $state.user.loans.length > 0;
   $: ship = $state.user.ships[0];
 </script>
 
+<div>
+  <Error />
+</div>
+
 <div class="content">
   <div>
-    <Error />
     <Game />
     <Account />
+
     {#if $state.loggedIn}
       {#if !hasLoan}
         <Loans />
@@ -31,24 +35,18 @@
         <Ships />
       {/if}
 
-      {#if ship && ship.location}
-        <Systems />
-      {/if}
-
       <Markets />
+      <Systems />
     {/if}
   </div>
-  <div>
-    {#if $state.loggedIn}
-      <User />
-      <UserLoans />
-      <UserShips />
-    {/if}
 
-    {#if $state.flightPlan.id}
-      <FlightPlan />
-    {/if}
+  <div>
+    <User />
+    <UserLoans />
+    <UserShips />
+    <FlightPlan />
   </div>
+
   <div>
     <TreeView label="state" data={$state} />
   </div>

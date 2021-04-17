@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
-    "start": "node server.js"
+    "start": "node server.js",
+    "publish": "cp -r build /usr/var/html"
   },
   "devDependencies": {
     "@sveltejs/adapter-node": "next",
